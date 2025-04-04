@@ -5,12 +5,6 @@ import {
   FaMinus,
   FaChevronDown,
   FaChevronRight,
-  FaSearch,
-  FaFilter,
-  FaTimes,
-  FaLayerGroup,
-  FaRegStar,
-  FaStar,
 } from "react-icons/fa";
 
 // ========== Animations ==========
@@ -30,20 +24,15 @@ const slideDown = keyframes`
   to { max-height: 1000px; opacity: 1; }
 `;
 
-const rotate = keyframes`
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-`;
-
 // ========== Styled Components ==========
 const Container = styled.div`
   font-family: "Inter", sans-serif;
-  max-width: 900px;
+  max-width: 800px;
   margin: 2rem auto;
   padding: 2rem;
   background: white;
   border-radius: 16px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   animation: ${fadeIn} 0.4s ease-out;
 `;
 
@@ -51,97 +40,16 @@ const Title = styled.h2`
   color: #6557ff;
   margin-bottom: 1.5rem;
   font-weight: 600;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   display: flex;
   align-items: center;
-  gap: 12px;
-  position: relative;
-
-  &::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -8px;
-    width: 50px;
-    height: 3px;
-    background: linear-gradient(90deg, #6557ff, #a18fff);
-    border-radius: 3px;
-  }
-`;
-
-const SearchContainer = styled.div`
-  display: flex;
-  align-items: center;
-  background: #f8f7ff;
-  border-radius: 10px;
-  padding: 8px 16px;
-  margin-bottom: 1.5rem;
-  transition: all 0.3s;
-  border: 1px solid #e0dcff;
-
-  &:focus-within {
-    box-shadow: 0 0 0 3px rgba(101, 87, 255, 0.2);
-  }
-`;
-
-const SearchInput = styled.input`
-  flex: 1;
-  border: none;
-  background: transparent;
-  padding: 8px;
-  font-size: 0.95rem;
-  color: #555;
-  outline: none;
-
-  &::placeholder {
-    color: #aaa;
-  }
-`;
-
-const FilterButton = styled.button`
-  background: #6557ff;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.9rem;
-  transition: all 0.2s;
-
-  &:hover {
-    background: #5547e0;
-    transform: translateY(-1px);
-  }
+  gap: 10px;
 `;
 
 const List = styled.ul`
   list-style: none;
   padding: 0;
   margin: 0;
-  max-height: 500px;
-  overflow-y: auto;
-  padding-right: 8px;
-
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: #c1b9ff;
-    border-radius: 10px;
-
-    &:hover {
-      background: #6557ff;
-    }
-  }
 `;
 
 const Item = styled.li`
@@ -152,8 +60,8 @@ const Item = styled.li`
 const Label = styled.label`
   display: flex;
   align-items: center;
-  padding: 14px 16px;
-  border-radius: 10px;
+  padding: 12px 16px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s;
   background: ${(props) => (props.isFocused ? "#f8f7ff" : "transparent")};
@@ -162,7 +70,6 @@ const Label = styled.label`
 
   &:hover {
     background: #f8f7ff;
-    transform: translateX(5px);
   }
 
   &::after {
@@ -187,11 +94,11 @@ const CustomCheckbox = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   border: 2px solid ${(props) => (props.checked ? "#6557ff" : "#d1d1d1")};
-  border-radius: 6px;
-  margin-right: 14px;
+  border-radius: 5px;
+  margin-right: 12px;
   background: ${(props) => (props.checked ? "#6557ff" : "white")};
   transition: all 0.2s;
   position: relative;
@@ -214,15 +121,14 @@ const CustomCheckbox = styled.span`
 
 const Text = styled.span`
   flex: 1;
-  font-size: 1rem;
-  color: ${(props) => (props.hasChildren ? "#444" : "#666")};
-  font-weight: ${(props) => (props.hasChildren ? "600" : "400")};
-  transition: all 0.2s;
+  font-size: 0.95rem;
+  color: #333;
+  font-weight: ${(props) => (props.hasChildren ? "500" : "400")};
 `;
 
 const ChildrenContainer = styled.div`
-  margin-left: 42px;
-  padding-left: 12px;
+  margin-left: 38px;
+  padding-left: 10px;
   border-left: 2px dashed rgba(101, 87, 255, 0.2);
   overflow: hidden;
   animation: ${slideDown} 0.3s ease-out;
@@ -232,7 +138,7 @@ const ToggleButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-  color: #aaa;
+  color: #888;
   padding: 0 8px;
   display: flex;
   align-items: center;
@@ -242,24 +148,6 @@ const ToggleButton = styled.button`
 
   &:hover {
     color: #6557ff;
-    transform: scale(1.1);
-  }
-`;
-
-const FavoriteButton = styled.button`
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: ${(props) => (props.favorited ? "#ffc107" : "#ddd")};
-  padding: 0 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-
-  &:hover {
-    color: #ffc107;
-    transform: scale(1.1);
   }
 `;
 
@@ -267,43 +155,18 @@ const ResultsContainer = styled.div`
   margin-top: 2rem;
   padding: 1.5rem;
   background: #f9f9ff;
-  border-radius: 14px;
-  border: 1px solid rgba(101, 87, 255, 0.15);
+  border-radius: 12px;
+  border: 1px solid rgba(101, 87, 255, 0.1);
   animation: ${fadeIn} 0.4s ease-out;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
-`;
-
-const ResultsHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
 `;
 
 const ResultsTitle = styled.h3`
   color: #6557ff;
-  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
   display: flex;
   align-items: center;
   gap: 8px;
-  margin: 0;
-`;
-
-const ClearButton = styled.button`
-  background: none;
-  border: none;
-  color: #ff5252;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 0.9rem;
-  transition: all 0.2s;
-
-  &:hover {
-    color: #ff0000;
-    transform: translateY(-1px);
-  }
 `;
 
 const ResultsList = styled.ul`
@@ -312,32 +175,18 @@ const ResultsList = styled.ul`
   margin: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
 `;
 
 const ResultItem = styled.li`
-  background: linear-gradient(135deg, #6557ff, #9a8cff);
+  background: #6557ff;
   color: white;
-  padding: 8px 14px;
+  padding: 6px 12px;
   border-radius: 20px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   display: flex;
   align-items: center;
-  gap: 8px;
-  box-shadow: 0 3px 10px rgba(101, 87, 255, 0.2);
-  transition: all 0.2s;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(101, 87, 255, 0.3);
-  }
-`;
-
-const EmptyState = styled.div`
-  text-align: center;
-  padding: 2rem;
-  color: #888;
-  font-size: 0.95rem;
+  gap: 6px;
 `;
 
 const Actions = styled.div`
@@ -348,30 +197,25 @@ const Actions = styled.div`
 `;
 
 const Button = styled.button`
-  padding: 12px 20px;
+  padding: 10px 18px;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: 500;
-  transition: all 0.3s;
+  transition: all 0.2s;
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.95rem;
+  gap: 6px;
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(101, 87, 255, 0.2);
+    box-shadow: 0 4px 12px rgba(101, 87, 255, 0.2);
   }
 `;
 
 const PrimaryButton = styled(Button)`
-  background: linear-gradient(135deg, #6557ff, #9a8cff);
+  background: #6557ff;
   color: white;
-
-  &:hover {
-    background: linear-gradient(135deg, #5547e0, #8a7cff);
-  }
 `;
 
 const SecondaryButton = styled(Button)`
@@ -381,24 +225,6 @@ const SecondaryButton = styled(Button)`
   &:hover {
     background: #e0e0e0;
   }
-`;
-
-const Badge = styled.span`
-  background: rgba(255, 255, 255, 0.2);
-  padding: 2px 8px;
-  border-radius: 10px;
-  font-size: 0.8rem;
-  margin-left: 6px;
-`;
-
-const LoadingSpinner = styled.div`
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  border-top-color: white;
-  animation: ${rotate} 1s ease-in-out infinite;
 `;
 
 // ========== Components ==========
@@ -413,9 +239,6 @@ const Checkbox = ({
   onFocus,
   onBlur,
   hasChildren,
-  favorited,
-  onToggleFavorite,
-  isSearchMatch,
 }) => {
   const [isOpen, setIsOpen] = useState(level < 1);
   const [isFocused, setIsFocused] = useState(false);
@@ -426,7 +249,7 @@ const Checkbox = ({
   };
 
   return (
-    <Item style={{ display: isSearchMatch ? "block" : "none" }}>
+    <Item>
       <Label htmlFor={id} isFocused={isFocused}>
         {hasChildren && (
           <ToggleButton
@@ -453,24 +276,13 @@ const Checkbox = ({
 
         <CustomCheckbox checked={checked} indeterminate={indeterminate}>
           {indeterminate ? (
-            <FaMinus size={12} color="white" />
+            <FaMinus size={10} color="white" />
           ) : (
-            checked && <FaCheck size={12} color="white" />
+            checked && <FaCheck size={10} color="white" />
           )}
         </CustomCheckbox>
 
         <Text hasChildren={hasChildren}>{label}</Text>
-
-        <FavoriteButton
-          favorited={favorited}
-          onClick={(e) => {
-            e.stopPropagation();
-            onToggleFavorite(id);
-          }}
-          aria-label={favorited ? "Remove favorite" : "Add favorite"}
-        >
-          {favorited ? <FaStar size={14} /> : <FaRegStar size={14} />}
-        </FavoriteButton>
       </Label>
 
       {hasChildren && isOpen && (
@@ -485,17 +297,6 @@ const Checkbox = ({
 const NestedCheckbox = ({ data, title, required, initialSelected }) => {
   const [selectedItems, setSelectedItems] = useState(initialSelected || []);
   const [showResults, setShowResults] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [favorites, setFavorites] = useState([]);
-  const [filter, setFilter] = useState("all");
-  const [isLoading, setIsLoading] = useState(false);
-
-  // Simulate loading
-  useEffect(() => {
-    setIsLoading(true);
-    const timer = setTimeout(() => setIsLoading(false), 1000);
-    return () => clearTimeout(timer);
-  }, [data]);
 
   const flattenTree = (nodes, parentId = null) => {
     return nodes.reduce((acc, node) => {
@@ -593,121 +394,7 @@ const NestedCheckbox = ({ data, title, required, initialSelected }) => {
     return someSelected && !allSelected;
   };
 
-  const toggleFavorite = (id) => {
-    setFavorites((prev) =>
-      prev.includes(id) ? prev.filter((itemId) => itemId !== id) : [...prev, id]
-    );
-  };
-
-  const isSearchMatch = (item) => {
-    if (!searchTerm) return true;
-    const matchesSearch = item.label
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-
-    // If it's a parent, check if any children match
-    if (item.children) {
-      const childrenMatch = item.children.some((child) => isSearchMatch(child));
-      return matchesSearch || childrenMatch;
-    }
-
-    return matchesSearch;
-  };
-
-  const filteredData =
-    filter === "favorites"
-      ? data.filter((item) => favorites.includes(item.id))
-      : data;
-
-  const selectedLabels = selectedItems
-    .map((id) => {
-      const item = allItems.find((item) => item.id === id);
-      return item ? item.label : null;
-    })
-    .filter(Boolean);
-
-  const clearSelection = () => {
-    setSelectedItems([]);
-    setShowResults(false);
-  };
-
-  return (
-    <Container>
-      <Title>
-        <FaLayerGroup style={{ color: "#9a8cff" }} />
-        {title || "Advanced Selection"}
-      </Title>
-
-      <SearchContainer>
-        <FaSearch style={{ color: "#aaa" }} />
-        <SearchInput
-          type="text"
-          placeholder="Search options..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <FilterButton
-          onClick={() =>
-            setFilter(filter === "favorites" ? "all" : "favorites")
-          }
-        >
-          <FaFilter /> {filter === "favorites" ? "Show All" : "Favorites"}
-        </FilterButton>
-      </SearchContainer>
-
-      {isLoading ? (
-        <EmptyState>
-          <LoadingSpinner /> Loading options...
-        </EmptyState>
-      ) : (
-        <List>{renderTree(filteredData)}</List>
-      )}
-
-      <Actions>
-        <PrimaryButton
-          onClick={() => setShowResults(true)}
-          disabled={selectedItems.length === 0}
-        >
-          <FaCheck /> Show Selection{" "}
-          {selectedItems.length > 0 && <Badge>{selectedItems.length}</Badge>}
-        </PrimaryButton>
-        <SecondaryButton onClick={() => toggleSelectAll(true)}>
-          <FaCheck /> Select All
-        </SecondaryButton>
-        <SecondaryButton onClick={() => toggleSelectAll(false)}>
-          <FaTimes /> Clear All
-        </SecondaryButton>
-      </Actions>
-
-      {showResults && (
-        <ResultsContainer>
-          <ResultsHeader>
-            <ResultsTitle>
-              <FaCheck /> Selected Items
-              <Badge>{selectedLabels.length}</Badge>
-            </ResultsTitle>
-            <ClearButton onClick={clearSelection}>
-              <FaTimes /> Clear
-            </ClearButton>
-          </ResultsHeader>
-
-          {selectedLabels.length > 0 ? (
-            <ResultsList>
-              {selectedLabels.map((label, index) => (
-                <ResultItem key={index}>
-                  <FaCheck size={12} /> {label}
-                </ResultItem>
-              ))}
-            </ResultsList>
-          ) : (
-            <EmptyState>No items selected</EmptyState>
-          )}
-        </ResultsContainer>
-      )}
-    </Container>
-  );
-
-  function renderTree(nodes) {
+  const renderTree = (nodes) => {
     return nodes.map((node) => (
       <Checkbox
         key={node.id}
@@ -717,17 +404,58 @@ const NestedCheckbox = ({ data, title, required, initialSelected }) => {
         indeterminate={isIndeterminate(node.id)}
         onChange={(checked) => handleCheckboxChange(node.id, checked)}
         hasChildren={!!node.children}
-        favorited={favorites.includes(node.id)}
-        onToggleFavorite={toggleFavorite}
-        isSearchMatch={isSearchMatch(node)}
       >
         {node.children && renderTree(node.children)}
       </Checkbox>
     ));
-  }
+  };
+
+  const selectedLabels = selectedItems
+    .map((id) => {
+      const item = allItems.find((item) => item.id === id);
+      return item ? item.label : null;
+    })
+    .filter(Boolean);
+
+  return (
+    <Container>
+      <Title>
+        <FaCheck style={{ opacity: 0.7 }} />
+        {title || "Select Options"}
+      </Title>
+
+      <List>{renderTree(data)}</List>
+
+      <Actions>
+        <PrimaryButton onClick={() => setShowResults(true)}>
+          <FaCheck /> Show Selection
+        </PrimaryButton>
+        <SecondaryButton onClick={() => toggleSelectAll(true)}>
+          <FaCheck /> Select All
+        </SecondaryButton>
+        <SecondaryButton onClick={() => toggleSelectAll(false)}>
+          <FaMinus /> Clear All
+        </SecondaryButton>
+      </Actions>
+
+      {showResults && selectedLabels.length > 0 && (
+        <ResultsContainer>
+          <ResultsTitle>
+            <FaCheck /> Selected Items ({selectedLabels.length})
+          </ResultsTitle>
+          <ResultsList>
+            {selectedLabels.map((label, index) => (
+              <ResultItem key={index}>
+                <FaCheck size={12} /> {label}
+              </ResultItem>
+            ))}
+          </ResultsList>
+        </ResultsContainer>
+      )}
+    </Container>
+  );
 };
 
-// Example Usage
 const App = () => {
   const data = [
     {
@@ -736,11 +464,11 @@ const App = () => {
       children: [
         {
           id: "phones",
-          label: "Smartphones",
+          label: "Phones",
           children: [
-            { id: "iphone", label: "iPhone 15 Pro" },
-            { id: "samsung", label: "Samsung Galaxy S24" },
-            { id: "pixel", label: "Google Pixel 8" },
+            { id: "iphone", label: "iPhone" },
+            { id: "samsung", label: "Samsung" },
+            { id: "google", label: "Google Pixel" },
           ],
         },
         {
@@ -751,46 +479,29 @@ const App = () => {
               id: "laptops",
               label: "Laptops",
               children: [
-                { id: "macbook", label: "MacBook Pro M3" },
-                { id: "surface", label: "Surface Laptop 5" },
-                { id: "xps", label: "Dell XPS 15" },
+                { id: "macbook", label: "MacBook Pro" },
+                { id: "surface", label: "Surface Laptop" },
               ],
             },
-            {
-              id: "desktops",
-              label: "Desktops",
-              children: [
-                { id: "imac", label: 'iMac 24"' },
-                { id: "hp", label: "HP Envy" },
-              ],
-            },
+            { id: "desktops", label: "Desktops" },
           ],
         },
-      ],
-    },
-    {
-      id: "home",
-      label: "Home Appliances",
-      children: [
-        { id: "tv", label: "Smart TVs" },
-        { id: "fridge", label: "Refrigerators" },
-        { id: "washing", label: "Washing Machines" },
       ],
     },
     {
       id: "furniture",
       label: "Furniture",
       children: [
-        { id: "sofa", label: "Sofas" },
-        { id: "table", label: "Dining Tables" },
-        { id: "bed", label: "Beds" },
+        { id: "chairs", label: "Chairs" },
+        { id: "tables", label: "Tables" },
+        { id: "sofas", label: "Sofas" },
       ],
     },
   ];
 
   return (
-    <div style={{ padding: "2rem", background: "#f9f9ff", minHeight: "100vh" }}>
-      <NestedCheckbox data={data} title="Product Catalog Selector" />
+    <div style={{ padding: "20px" }}>
+      <NestedCheckbox data={data} title="Product Categories" />
     </div>
   );
 };
